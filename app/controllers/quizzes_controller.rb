@@ -4,6 +4,21 @@ class QuizzesController < ApplicationController
   # GET /quizzes or /quizzes.json
   def index
     @quizzes = Quiz.all
+
+    @title = "These are all of the quizzes"
+    @description = "Here is a list of all of the quizzes"
+  end
+
+  def start
+    @title = "Start a quiz"
+    @description = "Here you can start a quiz"
+
+    respond_to do |format|
+      format.html
+      format.json do
+        render json: {title: @title, description: "Si ir JSON atbilde"}
+      end
+    end
   end
 
   # GET /quizzes/1 or /quizzes/1.json
