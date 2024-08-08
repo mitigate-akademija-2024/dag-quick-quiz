@@ -1,0 +1,10 @@
+<h1><%= @quiz.title %>
+<h2>New question</h2>
+
+<%= render "form", question: @question %>
+
+<br>
+
+<div>
+  <%= link_to "Back to quiz", @quiz, class: btn_class %>
+</div>
