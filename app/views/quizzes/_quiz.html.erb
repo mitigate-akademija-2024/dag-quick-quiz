@@ -9,11 +9,30 @@
     <%= quiz.description %>
   </p>
 
-  <h3>Questions</h3>
-  <%= link_to 'Add question', new_quiz_question_path(@quiz) %>
-  <ol>
-    <% quiz.questions.each do |question|%>
-      <li><%= question.question_text %></li>
-    <% end %>
-  </ol>
+  <strong>Questions</strong> <br>
+  <%= link_to 'Add question', new_quiz_question_path(@quiz), class: btn_class %>
+  <div class="overflow-x-auto">
+    <table id="questions" class="min-w-full divide-y-2 divide-zinc-950 bg-transparent text-sm">
+      <thead class="text-left">
+        <tr>
+          <th class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900">Jautājums</th>
+          <th class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900">1. atbilde</th>
+          <th class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900">2. atbilde</th>
+          <th class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900">3. atbilde</th>
+          <th class="px-4 py-2"></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-zinc-950">
+        <% quiz.questions.each do |question|%>
+        <tr>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700"> <%= question.question_text %></td>
+          <% question.answers.each do |answer| %>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700"> <%= answer.answer_text %>
+            <% if answer.correct %> ir pareizi <% end %> </td>
+          <% end %>
+        </tr>
+      <% end %>    
+      </tbody>
+    </table>
+  </div>
 </div>

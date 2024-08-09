@@ -12,11 +12,28 @@
   <% end %>
 
   <div>
-    <%= form.label :question_text, style: "display: block" %>
-    <%= form.text_field :question_text %>
+    <%= form.label :question_text, "Jautājums:", style: "display: block" %>
+    <%= form.text_field :question_text %> <br> <br>
+
+    <%
+=begin%>
+ <% question.answers.each_with_index do |answer, index| %>
+      <%= form.text_field "answer#{index}" %> <br>
+    <% end %> 
+<%
+=end%>
   </div>
+
+  <%= form.fields_for :answers do |ff| %>
+      <li>
+        <%= ff.label :answer_text %>
+        <%= ff.text_field :answer_text %>
+        <%= ff.check_box :correct %>
+      </li>
+  <% end %>
 
   <div>
     <%= form.submit class: btn_class %>
+    <%= form.submit :add_answer, class: btn_class %>
   </div>
 <% end %>
