@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   def index
   end
 
-  def create 
+  def create
     @question = @quiz.questions.new(question_attributes)
 
     if params[:commit] == "add_answer"
@@ -26,6 +26,8 @@ class QuestionsController < ApplicationController
   end
 
   def update
+
+    puts "==++= #{question_attributes}"
     respond_to do |format|
       if @question.update(question_attributes)
         format.html { redirect_to @question.quiz, notice: "Question updated." }

@@ -17,8 +17,8 @@
         <thead class="text-left">
         <tr>
           <td class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900"> <%= question.question_text %></td>
-          <td > <%= button_to "Delete question", question, method: :delete %></td>
-          <td > <%= link_to "Edit question", edit_question_path(question) %></td>
+          <td > <%= button_to "Delete question", question, method: :delete, class: btn_class_small %></td>
+          <td > <%= link_to "Edit question", edit_question_path(question), class: btn_class_small %></td>
         </tr>
         </thead>
         <tbody class="divide-y divide-zinc-950">
