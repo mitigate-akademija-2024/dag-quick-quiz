@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_quiz, only: [:new, :create]
+  before_action :set_question, only: [:destroy, :edit, :update]
 
   def index
   end
@@ -21,10 +22,31 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @question.update(question_attributes)
+        format.html { redirect_to @question.quiz, notice: "Question updated." }
+        format.json { render :show, status: :ok, location: @question }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def start
   end
 
   def test
+  end
+
+  def destroy
+    @question.destroy!
+
+    redirect_to quiz_path(@question.quiz), notice: "Question was successfully destroyed!"
   end
 
   def new
@@ -33,6 +55,7 @@ class QuestionsController < ApplicationController
   end
 
   def add_answer
+    wer
     @question = @quiz.questions.new(question_attributes)
     @question.answers.new
 
@@ -45,7 +68,11 @@ class QuestionsController < ApplicationController
     @quiz = Quiz.find(params[:quiz_id])
   end
 
+  def set_question
+    @question = Question.find(params[:id])
+  end
+
   def question_attributes
-    params.require(:question).permit(:question_text, answers_attributes: [:id, :answer_text, :correct])
+    params.require(:question).permit(:question_text, answers_attributes: [:id, :answer_text, :correct, :_destroy])
   end
 end

@@ -10,29 +10,33 @@
   </p>
 
   <strong>Questions</strong> <br>
-  <%= link_to 'Add question', new_quiz_question_path(@quiz), class: btn_class %>
-  <div class="overflow-x-auto">
-    <table id="questions" class="min-w-full divide-y-2 divide-zinc-950 bg-transparent text-sm">
-      <thead class="text-left">
+  <%= link_to 'Add question', new_quiz_question_path(@quiz), class: btn_class %>      
+  <% quiz.questions.each do |question|%>
+    <div class="overflow-x-auto">
+      <table id="questions" class="min-w-full divide-y-2 divide-zinc-950 bg-transparent text-sm">
+        <thead class="text-left">
         <tr>
-          <th class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900">Jautājums</th>
-          <th class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900">1. atbilde</th>
-          <th class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900">2. atbilde</th>
-          <th class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900">3. atbilde</th>
-          <th class="px-4 py-2"></th>
+          <td class="whitespace-nowrap px-4 py-2 font-semibold text-gray-900"> <%= question.question_text %></td>
+          <td > <%= button_to "Delete question", question, method: :delete %></td>
+          <td > <%= link_to "Edit question", edit_question_path(question) %></td>
         </tr>
-      </thead>
-      <tbody class="divide-y divide-zinc-950">
-        <% quiz.questions.each do |question|%>
-        <tr>
-          <td class="whitespace-nowrap px-4 py-2 text-gray-700"> <%= question.question_text %></td>
-          <% question.answers.each do |answer| %>
-            <td class="whitespace-nowrap px-4 py-2 text-gray-700"> <%= answer.answer_text %>
-            <% if answer.correct %> ir pareizi <% end %> </td>
-          <% end %>
-        </tr>
-      <% end %>    
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody class="divide-y divide-zinc-950">
+        <% question.answers.each do |answer| %>
+          <tr> 
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700" >
+              <%= answer.answer_text %>
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700" >
+              <%= answer.correct  ? "pareizi" : "nepareizi" %>
+            </td>
+            <td class="whitespace-nowrap px-4 py-2 text-gray-700" >
+              <%= format_date answer.created_at %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>    
 </div>
