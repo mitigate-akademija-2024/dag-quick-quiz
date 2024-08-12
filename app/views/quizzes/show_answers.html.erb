@@ -1,0 +1,17 @@
+<div data-controller="visibility">
+    <% @quiz.questions.each do |question| %>
+        <p><strong><%= question.question_text %></strong></p>
+        <% question.answers.each do |answer| %>
+            <p>
+                <span data-visibility-target="hideable" hidden><%= answer.correct ? "patiess: " : "nepatiess: " %></span><%= answer.answer_text %>
+            </p>
+            <p>
+                <span data-visibility-target="hideable" hidden><%= answer.user_scores.where(user_id: @user_id).last.user_answer == answer.correct ? "pareizi " : "nepareizi " %></span>
+            </p>
+        <% end %>
+    <% end %>
+    <button data-action="visibility#showTargets" class="<%=btn_class%>">
+    Parādīt atbildes</button>
+    <%= link_to "Back to quizzes", quizzes_path, class: btn_class %>
+
+</div>

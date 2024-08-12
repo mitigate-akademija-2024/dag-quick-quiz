@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get :start
       get :continue
       post :check
+      get :show_answers
     end
     get "completed", on: :collection
   end

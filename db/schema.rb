@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_12_123316) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_12_195607) do
   create_table "answers", force: :cascade do |t|
     t.integer "question_id"
     t.string "answer_text", null: false
@@ -41,10 +41,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_12_123316) do
     t.boolean "user_answer", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quiz_id"
+    t.integer "user_id"
     t.index ["answer_id"], name: "index_user_scores_on_answer_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "answers", "questions"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "user_scores", "answers"
+  add_foreign_key "user_scores", "quizzes"
+  add_foreign_key "user_scores", "users"
 end

@@ -4,5 +4,5 @@ class Answer < ApplicationRecord
 
     belongs_to :question
 
-    has_many :user_score
+    has_many :user_scores
 end
