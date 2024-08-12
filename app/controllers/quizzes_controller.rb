@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show edit update destroy start]
+  before_action :set_quiz, only: %i[ show edit update destroy check start]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -12,10 +12,34 @@ class QuizzesController < ApplicationController
   def start
     @title = "Start a quiz"
     @description = "Here you can start a quiz"
+    if defined? @quiz
+      @user_answers = @quiz.user_answers
+    else
+      set_quiz
+    end
   end
 
   # GET /quizzes/1 or /quizzes/1.json
   def show
+  end
+
+  def check
+    puts "params: #{answer_params}" 
+
+    answer_params[0].each do |question_id, answer|
+      puts "answer: #{answer}"
+      answer.keys.each do |answer_id|
+        @answer = Answer.find(answer_id)
+        correct_answer = @answer.correct
+        puts "user: #{answer[answer_id]}, correct: #{correct_answer}"
+        @user_answer = @answer.user_score.create(user_answer: !answer[answer_id].to_i.zero?, username: answer_params[1])
+        if !answer[answer_id].to_i.zero? == correct_answer
+          puts "answer_id: #{answer_id}"        
+        end
+      end
+    end
+
+    render :start
   end
 
   # GET /quizzes/new
@@ -78,5 +102,9 @@ class QuizzesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def quiz_params
       params.require(:quiz).permit(:title, :description)
+    end
+
+    def answer_params
+      params.require([:answers, :username])
     end
 end

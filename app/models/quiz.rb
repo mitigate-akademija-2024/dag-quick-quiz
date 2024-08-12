@@ -1,4 +1,7 @@
 class Quiz < ApplicationRecord
+
+    attr_accessor :user_answers
+
     validates :title, presence: true, uniqueness: true
 
     before_validation :normalize_title

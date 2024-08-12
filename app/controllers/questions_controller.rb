@@ -57,7 +57,6 @@ class QuestionsController < ApplicationController
   end
 
   def add_answer
-    wer
     @question = @quiz.questions.new(question_attributes)
     @question.answers.new
 

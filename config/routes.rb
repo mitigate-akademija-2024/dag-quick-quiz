@@ -7,9 +7,16 @@ Rails.application.routes.draw do
     member do 
       get :start
       get :continue
+      post :check
     end
     get "completed", on: :collection
   end
+
+  # resources :answers do
+  #   collection do 
+  #     get :check
+  #   end
+  # end
 
   # get "/start_quiz/:id", to: "quizzes#start"
 

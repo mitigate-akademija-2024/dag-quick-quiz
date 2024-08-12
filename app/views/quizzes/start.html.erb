@@ -1,9 +1,17 @@
 <h1><%= @title %></h1>
 <h1><%= @description %></h1>
-
-<% @quiz.questions.each do |question| %>
-    <p><strong><%= question.question_text %></strong></p>
-    <% question.answers.each do |answer| %>
-        <p><%= answer.answer_text %></p>
+<%= form_with model: @question, url: check_quiz_path(@quiz) do |form| %>
+    <% @quiz.questions.each do |question| %>
+        <p><strong><%= question.question_text %></strong></p>
+        <% question.answers.each do |answer| %>
+            <p>
+                <%= form.check_box "answers[#{question.id}][#{answer.id}]" %><%= answer.answer_text %>
+                <% if @user_answers && @user_answers.length > 0 %>
+                <% @user_answers.include?(answer.id) ? "pareizi" : "nepareizi" %>
+                <%end%>
+            </p>
+        <% end %>
     <% end %>
+    <%= form.text_field :username%>
+    <%= form.submit class: btn_class %>
 <% end %>
