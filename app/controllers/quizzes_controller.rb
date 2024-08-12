@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show edit update destroy ]
+  before_action :set_quiz, only: %i[ show edit update destroy start]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -12,13 +12,6 @@ class QuizzesController < ApplicationController
   def start
     @title = "Start a quiz"
     @description = "Here you can start a quiz"
-
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {title: @title, description: "Si ir JSON atbilde"}
-      end
-    end
   end
 
   # GET /quizzes/1 or /quizzes/1.json

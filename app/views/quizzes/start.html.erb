@@ -1,2 +1,9 @@
 <h1><%= @title %></h1>
 <h1><%= @description %></h1>
+
+<% @quiz.questions.each do |question| %>
+    <p><strong><%= question.question_text %></strong></p>
+    <% question.answers.each do |answer| %>
+        <p><%= answer.answer_text %></p>
+    <% end %>
+<% end %>
