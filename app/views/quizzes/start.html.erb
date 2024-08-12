@@ -1,17 +1,22 @@
 <h1><%= @title %></h1>
 <h1><%= @description %></h1>
-<%= form_with model: @question, url: check_quiz_path(@quiz) do |form| %>
-    <% @quiz.questions.each do |question| %>
-        <p><strong><%= question.question_text %></strong></p>
-        <% question.answers.each do |answer| %>
-            <p>
-                <%= form.check_box "answers[#{question.id}][#{answer.id}]" %><%= answer.answer_text %>
-                <% if @user_answers && @user_answers.length > 0 %>
-                <% @user_answers.include?(answer.id) ? "pareizi" : "nepareizi" %>
-                <%end%>
-            </p>
+<div data-controller="visibility">
+    <%= form_with model: @question, url: check_quiz_path(@quiz) do |form| %>
+        <% @quiz.questions.each do |question| %>
+            <p><strong><%= question.question_text %></strong></p>
+            <% question.answers.each do |answer| %>
+                <p>
+                    <span data-visibility-target="hideable"><%= form.check_box "answers[#{question.id}][#{answer.id}]" %></span><%= answer.answer_text %>
+                    <% if @user_answers && @user_answers.length > 0 %>
+                    <% @user_answers.include?(answer.id) ? "pareizi" : "nepareizi" %>
+                    <%end%>
+                </p>
+            <% end %>
         <% end %>
+        <div data-visibility-target="hideable"><%= form.text_field :username%></div>
+        <div data-visibility-target="hideable">Hide me</div>
+        <button data-action="visibility#hideTargets">
+        <%= form.submit class: btn_class %></button>
+        <%= link_to "Back to quizzes", quizzes_path, class: btn_class %>
     <% end %>
-    <%= form.text_field :username%>
-    <%= form.submit class: btn_class %>
-<% end %>
+</div>

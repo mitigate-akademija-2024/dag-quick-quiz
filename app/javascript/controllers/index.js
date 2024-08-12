@@ -7,6 +7,9 @@ import RailsNestedForm from '@stimulus-components/rails-nested-form'
 
 import HelloController from "./hello_controller"
 
+import VisibilityController from "./visibility_controller"
+
+application.register("visibility", VisibilityController)
 application.register("hello", HelloController)
 application.register('nested-form', RailsNestedForm)
 
