@@ -4,5 +4,5 @@ class Answer < ApplicationRecord
 
     belongs_to :question
 
-    has_many :user_scores
+    has_many :user_scores, dependent: :destroy
 end
