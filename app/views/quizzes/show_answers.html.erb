@@ -13,5 +13,6 @@
     <button data-action="visibility#showTargets" class="<%=btn_class%>">
     Parādīt atbildes</button>
     <%= link_to "Back to quizzes", quizzes_path, class: btn_class %>
+    <%= link_to "Do it again", start_quiz_path(@quiz), class: btn_class%>
 
 </div>

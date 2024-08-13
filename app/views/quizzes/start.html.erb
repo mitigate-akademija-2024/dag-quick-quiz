@@ -2,16 +2,6 @@
 <h1><%= @description %></h1>
 <div data-controller="visibility">
     <%= form_with model: @question, url: check_quiz_path(@quiz) do |form| %>
-    <% if @quiz.errors.any? %>
-        <div style="color: red">
-        <h2><%= pluralize(quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
-        <ul>
-        <% quiz.errors.each do |error| %>
-        <li><%= error.full_message %></li>
-        <% end %>
-        </ul>
-        </div>
-    <% end %>
         <% @quiz.questions.each do |question| %>
             <p><strong><%= question.question_text %></strong></p>
             <% question.answers.each do |answer| %>

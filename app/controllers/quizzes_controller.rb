@@ -40,7 +40,7 @@ class QuizzesController < ApplicationController
       end
       redirect_to show_answers_quiz_path(@quiz)
     else
-      flash.now.alert = "Error saving user"
+      flash.now.alert = "You must input a username!"
       render :start, status: :unprocessable_entity 
     end
   end
