@@ -1,0 +1,18 @@
+<div class="overflow-x-auto">
+  <table id="quizzes" class="table">
+    <thead class="text-left">
+      <tr>
+        <th>ID</th>
+        <th>Nosaukums</th>
+        <th>Apraksts</th>
+        <th>Izveidots</th>
+        <th>Autors</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'quizzes/quiz_row', collection: @quizzes, as: :quiz %>
+    </tbody>
+  </table>
+</div>
+<%= link_to "New quiz", new_quiz_path, class: btn_class %>

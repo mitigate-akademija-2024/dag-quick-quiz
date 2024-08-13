@@ -10,8 +10,14 @@ Rails.application.routes.draw do
       get :continue
       post :check
       get :show_answers
+      get :my_quizzes
     end
     get "completed", on: :collection
+  end
+
+  resources :users do
+    resources :quizzes, shallow: true
+    get "my_quizzes", on: :member
   end
 
   # resources :answers do
