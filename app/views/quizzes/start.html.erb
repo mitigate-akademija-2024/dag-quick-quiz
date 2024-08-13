@@ -2,17 +2,29 @@
 <h1><%= @description %></h1>
 <div data-controller="visibility">
     <%= form_with model: @question, url: check_quiz_path(@quiz) do |form| %>
+    <% if @quiz.errors.any? %>
+        <div style="color: red">
+        <h2><%= pluralize(quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+        <ul>
+        <% quiz.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+        <% end %>
+        </ul>
+        </div>
+    <% end %>
         <% @quiz.questions.each do |question| %>
             <p><strong><%= question.question_text %></strong></p>
             <% question.answers.each do |answer| %>
                 <p>
-                    <span data-visibility-target="hideable"><%= form.check_box "answers[#{question.id}][#{answer.id}]" %></span><%= answer.answer_text %>
+                    <%= form.check_box "answers[#{question.id}][#{answer.id}]", autocomplete: "off" %>
+                    <%= form.label :"answers[#{question.id}][#{answer.id}]", answer.answer_text %>
                 </p>
             <% end %>
         <% end %>
-        <div data-visibility-target="hideable"><%= form.text_field :username%></div>
-        <button data-action="visibility#hideTargets">
-        <%= form.submit class: btn_class %></button>
+        <%= form.label :username, "Input username: "%>
+        <%= form.text_field :username, autocomplete: "off"%>
+        
+        <%= form.submit class: btn_class %>
         <%= link_to "Back to quizzes", quizzes_path, class: btn_class %>
     <% end %>
 </div>

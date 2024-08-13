@@ -23,17 +23,26 @@ class QuizzesController < ApplicationController
   end
 
   def check
-    @username = User.new(username: answer_params[1])
+    @username = User.new(username: params.fetch(:username))
     if @username.save
-      flash.notice = "New user successfully added!"
-    end
-    answer_params[0].each do |question_id, answer|
-      answer.keys.each do |answer_id|
-        @answer = Answer.find(answer_id)
-        @user_answer = @answer.user_scores.create(user_answer: !answer[answer_id].to_i.zero?, user_id: @username.id, username: @username.username, quiz_id: answer_params[2])
+      params.fetch(:answers).each do |question_id, answer|
+        user_answers = []
+        answer.keys.each do |answer_id|
+          @answer = Answer.find(answer_id)
+          @user_answer = @answer.user_scores.create(user_answer: !answer[answer_id].to_i.zero?, user_id: @username.id, username: @username.username, quiz_id: params.fetch(:id))
+          user_answers.append !answer[answer_id].to_i.zero?
+        end
+        if !user_answers.include?(true)
+          flash.now.alert = "At least one answer must be chosen!"
+          render :start, status: :unprocessable_entity
+          return
+        end
       end
+      redirect_to show_answers_quiz_path(@quiz)
+    else
+      flash.now.alert = "Error saving user"
+      render :start, status: :unprocessable_entity 
     end
-    redirect_to show_answers_quiz_path(@quiz)
   end
 
   # GET /quizzes/new
