@@ -12,10 +12,9 @@ class QuestionsController < ApplicationController
       @question.answers.new
       render :new, status: :unprocessable_entity
     else
-
       if @question.save
-      flash.notice = "Question was created."
-      redirect_to quiz_url(@quiz)
+        flash.notice = "Question was created."
+        redirect_to quiz_url(@quiz)
       else
         render :new, status: :unprocessable_entity
       end
@@ -27,7 +26,6 @@ class QuestionsController < ApplicationController
 
   def update
 
-    puts "==++= #{question_attributes}"
     respond_to do |format|
       if @question.update(question_attributes)
         format.html { redirect_to @question.quiz, notice: "Question updated." }

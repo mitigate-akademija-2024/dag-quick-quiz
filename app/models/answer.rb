@@ -1,6 +1,6 @@
 class Answer < ApplicationRecord
 
-    validates :answer_text, presence: true, on: :is_present
+    validates :answer_text, presence: true
 
     belongs_to :question
 
