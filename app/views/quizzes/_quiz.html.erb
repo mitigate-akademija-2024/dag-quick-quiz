@@ -9,6 +9,11 @@
     <%= quiz.description %>
   </p>
 
+  <p>
+    <strong>Created by:</strong>
+    <%= quiz.user.username %>
+  </p>
+
   <strong>Questions</strong> <br>
   <%= link_to 'Add question', new_quiz_question_path(@quiz), class: btn_class %>      
   <% quiz.questions.each do |question|%>

@@ -7,7 +7,8 @@ class User < ApplicationRecord
     validate :validate_username
     validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
-    has_many :user_scores
+    has_many :user_scores, dependent: :destroy
+    has_many :quizzes, dependent: :destroy
 
     attr_writer :login
 

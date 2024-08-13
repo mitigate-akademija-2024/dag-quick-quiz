@@ -1,13 +1,12 @@
 class Quiz < ApplicationRecord
 
-    attr_accessor :user_answers
-
     validates :title, presence: true, uniqueness: true
 
     before_validation :normalize_title
 
     before_save :normalize_description
 
+    belongs_to :user
     has_many :questions, dependent: :destroy
     has_many :user_scores, dependent: :destroy
 
