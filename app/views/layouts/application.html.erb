@@ -11,10 +11,11 @@
   </head>
 
   <body>
-  <div class="navbar bg-neutral">
+  <div class="navbar bg-neutral relative">
     <%= link_to "All quizzes", quizzes_path, class: "btn btn-ghost text-xl" %>
     <% if user_signed_in? %>
       <%= link_to "My quizzes", my_quizzes_user_path(current_user), class: "btn btn-ghost text-xl" %>
+      <%= link_to "New quiz", new_quiz_path, class: "btn btn-secondary text-xl absolute right-5" %>
     <% end %>
   </div>
   <div class="container mx-auto p-2">
