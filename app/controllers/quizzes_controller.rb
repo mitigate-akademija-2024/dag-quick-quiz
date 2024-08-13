@@ -1,6 +1,6 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy check start show_answers]
-  before_action :authenticate_user!, only: %i[ new create update destroy ]
+  before_action :authenticate_user!, only: %i[ new create update destroy check ]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -20,7 +20,18 @@ class QuizzesController < ApplicationController
   end
 
   def show_answers
-    @user_id = User.last.id
+    @score = 0
+    @total = 0
+    @quiz.questions.each do |question|
+      question.answers.each do |answer|
+        if answer.correct == true
+          @total += 1
+          if answer.user_scores.where(user_id: current_user.id).last.user_answer == true
+            @score += 1
+          end
+        end
+      end
+    end
   end
 
   def check

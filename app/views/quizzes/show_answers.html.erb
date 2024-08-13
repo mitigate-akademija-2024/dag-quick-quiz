@@ -1,4 +1,5 @@
 <div data-controller="visibility">
+    <p>You earned <%= @score %> points out of <%= @total %> points!</p>
     <% @quiz.questions.each do |question| %>
         <p><strong><%= question.question_text %></strong></p>
         <% question.answers.each do |answer| %>
