@@ -2,7 +2,7 @@
 <h1><%= @description %></h1>
 
 <% if user_signed_in? %> 
- <div> Welcome <%= current_user.email %> </div> 
+ <div> Welcome <%= current_user.username.blank? ? current_user.email : current_user.username %> </div> 
   <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: btn_class %> 
 <% else %>
   <%= button_to "Sign in", new_user_session_path, class: btn_class %> 

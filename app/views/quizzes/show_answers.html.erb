@@ -6,7 +6,7 @@
                 <span data-visibility-target="hideable" hidden><%= answer.correct ? "patiess: " : "nepatiess: " %></span><%= answer.answer_text %>
             </p>
             <p>
-                <span data-visibility-target="hideable" hidden><%= answer.user_scores.where(user_id: @user_id).last.user_answer == answer.correct ? "pareizi " : "nepareizi " %></span>
+                <span data-visibility-target="hideable" hidden><%= answer.user_scores.where(user_id: current_user.id).last.user_answer == answer.correct ? "pareizi " : "nepareizi " %></span>
             </p>
         <% end %>
     <% end %>
