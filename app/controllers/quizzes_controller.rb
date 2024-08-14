@@ -2,7 +2,6 @@ class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy check start show_answers]
   before_action :authenticate_user!, only: %i[ new create update destroy check show_answers start]
   before_action :authenticate_author, only: %i[ update destroy edit show]
-  before_action :set_username
 
   # GET /quizzes or /quizzes.json
   def index

@@ -11,7 +11,7 @@
             <% break if index == 10%>
             <tr class="hover">
             <td><%= index + 1 %></td>
-            <td><%= score.user.username %></td>
+            <td><%= score.user.username.blank? ? "No name" : score.user.username %></td>
             <td><%= score.score %></td>
             </tr>
         <% end %>
