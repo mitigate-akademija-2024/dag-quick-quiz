@@ -1,7 +1,8 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy check start show_answers]
-  before_action :authenticate_user!, only: %i[ new create update destroy check ]
+  before_action :authenticate_user!, only: %i[ new create update destroy check show_answers start]
   before_action :authenticate_author, only: %i[ update destroy edit show]
+  before_action :set_username
 
   # GET /quizzes or /quizzes.json
   def index
@@ -130,6 +131,15 @@ class QuizzesController < ApplicationController
     def authenticate_author
       if current_user != @quiz.user
         redirect_to quizzes_url, alert: "You do not have permissions to edit this quiz!"
+      end
+    end
+
+    def set_username
+      if user_signed_in?
+        if current_user.username.blank?
+          @user = current_user
+          @user.update_attribute(:username, "No name")
+        end
       end
     end
 end

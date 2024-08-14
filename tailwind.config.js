@@ -12,6 +12,7 @@ module.exports = {
   ],
   daisyui: {
     themes: [
+      "lemonade",
       {
         mytheme: {
           "primary": "#3730a3",
