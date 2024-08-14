@@ -6,7 +6,7 @@
             <p><strong><%= question.question_text %></strong></p>
             <% question.answers.each do |answer| %>
                 <p>
-                    <%= form.check_box "answers[#{question.id}][#{answer.id}]", autocomplete: "off" %>
+                    <%= form.check_box "answers[#{question.id}][#{answer.id}]", autocomplete: "off", class: "checkbox checkbox-lg"%>
                     <%= form.label :"answers[#{question.id}][#{answer.id}]", answer.answer_text %>
                 </p>
             <% end %>

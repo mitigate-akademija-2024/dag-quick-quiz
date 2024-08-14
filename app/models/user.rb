@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
     has_many :user_scores, dependent: :destroy
     has_many :quizzes, dependent: :destroy
+    has_many :total_scores, dependent: :destroy
 
     attr_writer :login
 

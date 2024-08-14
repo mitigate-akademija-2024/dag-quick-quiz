@@ -16,4 +16,24 @@
     <%= link_to "Back to quizzes", quizzes_path, class: btn_class %>
     <%= link_to "Do it again", start_quiz_path(@quiz), class: btn_class%>
 
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Vieta</th>
+                <th>Vārds</th>
+                <th>Iegūtie punkti</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @quiz.total_scores.each_with_index do |score, index|%>
+                <% break if index == 10%>
+                <tr class="hover">
+                <td><%= index + 1 %></td>
+                <td><%= score.user.username %></td>
+                <td><%= score.score %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
 </div>

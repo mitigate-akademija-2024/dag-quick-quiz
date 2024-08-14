@@ -1,6 +1,7 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy check start show_answers]
   before_action :authenticate_user!, only: %i[ new create update destroy check ]
+  before_action :authenticate_author, only: %i[ update destroy edit show]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -20,15 +21,12 @@ class QuizzesController < ApplicationController
   end
 
   def show_answers
-    @score = 0
+    @score = @quiz.total_scores.where(user_id: current_user.id).last.score
     @total = 0
     @quiz.questions.each do |question|
       question.answers.each do |answer|
         if answer.correct == true
           @total += 1
-          if answer.user_scores.where(user_id: current_user.id).last.user_answer == true
-            @score += 1
-          end
         end
       end
     end
@@ -48,6 +46,15 @@ class QuizzesController < ApplicationController
         return
       end
     end
+    @score = 0
+    @quiz.questions.each do |question|
+      question.answers.each do |answer|
+        if answer.correct == true && answer.user_scores.where(user_id: current_user.id).last.user_answer == true
+          @score += 1
+        end
+      end
+    end
+    @quiz.total_scores.create(user_id: current_user.id, score: @score)
     redirect_to show_answers_quiz_path(@quiz)
   end
 
@@ -115,5 +122,11 @@ class QuizzesController < ApplicationController
 
     def answer_params
       params.require([:answers, :username, :id])
+    end
+
+    def authenticate_author
+      if current_user != @quiz.user
+        redirect_to quizzes_url, alert: "You do not have permissions to edit this quiz!"
+      end
     end
 end
