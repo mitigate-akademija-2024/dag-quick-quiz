@@ -21,12 +21,15 @@ class QuizzesController < ApplicationController
   end
 
   def show_answers
-    @score = @quiz.total_scores.where(user_id: current_user.id).last.score
+    @score = 0
     @total = 0
     @quiz.questions.each do |question|
       question.answers.each do |answer|
         if answer.correct == true
           @total += 1
+          if answer.user_scores.where(user_id: current_user.id).last.user_answer == true
+            @score += 1
+          end
         end
       end
     end
