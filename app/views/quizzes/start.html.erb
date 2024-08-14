@@ -1,18 +1,25 @@
-<h1><%= @title %></h1>
-<h1><%= @description %></h1>
-<div data-controller="visibility">
-    <%= form_with model: @question, url: check_quiz_path(@quiz) do |form| %>
-        <% @quiz.questions.each do |question| %>
-            <p><strong><%= question.question_text %></strong></p>
-            <% question.answers.each do |answer| %>
-                <p>
-                    <%= form.check_box "answers[#{question.id}][#{answer.id}]", autocomplete: "off", class: "checkbox checkbox-lg"%>
-                    <%= form.label :"answers[#{question.id}][#{answer.id}]", answer.answer_text %>
-                </p>
+<div class="flex justify-between">
+    <div data-controller="visibility">
+        <%= form_with model: @question, url: check_quiz_path(@quiz) do |form| %>
+            <% @quiz.questions.each do |question| %>
+                <div class="card bg-base-100 w-96 shadow-2xl my-3">
+                    <div class="card-body">
+                        <h2 class="card-title"><%= question.question_text %></h2>
+                        <% question.answers.each do |answer| %>
+                            <p>
+                                <%= form.check_box "answers[#{question.id}][#{answer.id}]", autocomplete: "off", class: "checkbox checkbox-lg"%>
+                                <%= form.label :"answers[#{question.id}][#{answer.id}]", answer.answer_text %>
+                            </p>   
+                        <% end %>
+                    </div>
+                </div>
             <% end %>
+            <%= form.submit "Save your answers", class: btn_class %>
+            <%= link_to "Back to quizzes", quizzes_path, class: btn_class %>
         <% end %>
-        
-        <%= form.submit "Save your answers", class: btn_class %>
-        <%= link_to "Back to quizzes", quizzes_path, class: btn_class %>
-    <% end %>
+    </div>
+    <div data-controller="visibility">
+        <div data-visibility-target="hideable"><button class="btn btn-primary" data-action="visibility#toggleTargets">Show leaderboard</button></div>
+        <div data-visibility-target="hideable" hidden><%= render partial: 'result_table', object: @quiz %></div>
+    </div>
 </div>
