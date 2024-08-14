@@ -11,21 +11,21 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
+  <div class="flex flex-col max-w-sm mx-auto">
+    <div class="mb-4">
+      <%= form.label :title, "Quiz title", class: "block font-medium text-md" %> 
+      <%= form.text_field :title, class: "input input-bordered w-full mt-1", autofocus: true %>
+    </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
+    <div class="mb-4">
+      <%= form.label :description, "Description", class: "block font-medium text-md"%>
+      <%= form.text_area :description, class: "textarea textarea-bordered w-full mt-1" %>
+    </div>
 
-  <div>
     <%= form.hidden_field :user_id, value: current_user.id %>
-  </div>
 
-  <div>
-    <%= form.submit class: btn_class %>
+    <div class="mb-4 text-center">
+      <%= form.submit class: btn_class %>
+    </div>
   </div>
 <% end %>

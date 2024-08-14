@@ -11,6 +11,19 @@ class Quiz < ApplicationRecord
     has_many :user_scores, dependent: :destroy
     has_many :total_scores, dependent: :destroy
 
+    require 'csv'
+
+    def to_csv
+        scores = self.total_scores.joins(:user).select('total_scores.*, users.username').limit(10)
+        columns = ['username', 'score', 'created_at']
+        CSV.generate do |csv|
+            csv << columns
+            scores.each do |score|
+                csv << score.attributes.values_at(*columns)
+            end
+        end
+    end
+
     protected
 
     def normalize_title

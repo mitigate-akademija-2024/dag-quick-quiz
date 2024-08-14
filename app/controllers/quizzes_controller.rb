@@ -33,6 +33,10 @@ class QuizzesController < ApplicationController
         end
       end
     end
+    respond_to do |format|
+      format.html
+      format.csv { send_data @quiz.to_csv, filename: "results-#{DateTime.now.strftime("%d%m%Y%H%M")}.csv"}
+    end
   end
 
   def check
