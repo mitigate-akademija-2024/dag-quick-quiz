@@ -11,27 +11,28 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :question_text, "Jautājums:", style: "display: block" %>
-    <%= form.text_field :question_text %> <br> <br>
+  <div class="max-w-md mx-auto">
 
-  <%= form.fields_for :answers do |ff| %>
-      <%= render 'answer_form', form: ff %>
-  <% end %>
+    <%= form.label :question_text, "Question:", class: "block font-medium text-lg"%>
+    <%= form.text_field :question_text, class: "input input-bordered w-full mt-1", autofocus: true %> <br> <br>
 
-  <template data-nested-form-target="template">
-    <%= form.fields_for :answers, Answer.new, child_index: 'NEW_RECORD' do |answer_fields| %>
-      <%= render "answer_form", form: answer_fields %>
+    <button type="button" data-action="nested-form#add" class="btn btn-primary btn-sm">Add answer</button>
+
+    <%= form.fields_for :answers do |ff| %>
+        <%= render 'answer_form', form: ff %>
     <% end %>
-  </template>
 
-  <!-- Inserted elements will be injected before that target. -->
-  <div data-nested-form-target="target"></div>
+    <template data-nested-form-target="template">
+      <%= form.fields_for :answers, Answer.new, child_index: 'NEW_RECORD' do |answer_fields| %>
+        <%= render "answer_form", form: answer_fields %>
+      <% end %>
+    </template>
 
-  <button type="button" data-action="nested-form#add" class="<%=btn_class_small%>">Add answer</button>
+    <!-- Inserted elements will be injected before that target. -->
+    <div data-nested-form-target="target"></div>
 
-  <div>
-    <%= form.submit class: btn_class %>
-    <%= form.submit :add_answer %>
+    <div>
+      <%= form.submit class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>

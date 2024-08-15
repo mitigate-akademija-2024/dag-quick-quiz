@@ -1,8 +1,11 @@
-<li class="nested-form-wrapper" data-new-record="<%= form.object.new_record? %>">
-<%= form.label :answer_text %>
-<%= form.text_field :answer_text %>
-<%= form.check_box :correct %>
-<button type="button" data-action="nested-form#remove" class="<%=btn_class_small%>">Remove answer</button>
-
-<%= form.hidden_field :_destroy %>
-</li>
+<div class="nested-form-wrapper mx-auto flex my-2 items-center" data-new-record="<%= form.object.new_record? %>">
+    <div class="">
+        <%= form.label :answer_text, "Answer option", class: "block font-medium text-lg" %>
+        <%= form.text_field :answer_text, class: "input input-bordered w-full mt-1" %>
+    
+        <%= form.label :correc, "Correct answer", class: "font-medium text-md italic" %>
+        <%= form.check_box :correct, class:"checkbox checkbox-success" %>
+    </div>
+    <button type="button" data-action="nested-form#remove" class="btn btn-accent btn-xs ml-2">Remove answer</button>
+    <%= form.hidden_field :_destroy %>
+</div>

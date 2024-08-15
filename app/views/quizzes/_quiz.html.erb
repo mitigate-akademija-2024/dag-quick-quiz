@@ -1,13 +1,14 @@
 <div id="<%= dom_id quiz %>">
-  <p>
-    <strong>Title:</strong>
-    <%= quiz.title %>
-  </p>
+  <div class="flex">
+    <h1 class="font-bold text-xl text-base-content">
+      <%= quiz.title %>
+    </h1>
 
-  <p>
-    <strong>Description:</strong>
-    <%= quiz.description %>
-  </p>
+    <p class="prose text-base-content">
+      <%= quiz.description %>
+    </p>
+    
+  </div>
 
   <strong>Questions</strong> <br>
   <%= link_to 'Add question', new_quiz_question_path(@quiz), class: btn_class %>      
@@ -17,8 +18,8 @@
         <thead class="text-left">
         <tr>
           <td> <%= question.question_text %></td>
-          <td> <%= button_to "Delete question", question, method: :delete, class: btn_class_small %></td>
-          <td> <%= link_to "Edit question", edit_question_path(question), class: btn_class_small %></td>
+          <td> <%= button_to "Delete question", question, method: :delete, class: "btn btn-accent btn-xs" %></td>
+          <td> <%= link_to "Edit question", edit_question_path(question), class: "btn btn-accent btn-xs" %></td>
         </tr>
         </thead>
         <tbody>

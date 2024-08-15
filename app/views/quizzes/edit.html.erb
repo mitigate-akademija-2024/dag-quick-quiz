@@ -1,10 +1,15 @@
-<h1>Editing quiz</h1>
+<div class="flex justify-between">
+  <h1 class="font-bold text-center text-xl text-base-content">Editing quiz</h1>
+
+  <div class="flex">
+    <%= link_to "Show this quiz", @quiz, class: "btn btn-primary btn-sm mx-2" %>
+    <%= link_to "Back to quizzes", quizzes_path, class: "btn btn-secondary btn-sm mx-2" %>
+  </div>
+</div>
+<div class="divider"></div>
 
 <%= render "form", quiz: @quiz %>
 
 <br>
 
-<div>
-  <%= link_to "Show this quiz", @quiz, class: btn_class %> |
-  <%= link_to "Back to quizzes", quizzes_path, class: btn_class %>
-</div>
+
